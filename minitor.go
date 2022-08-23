@@ -188,6 +188,15 @@ func main() {
 		if val, ok := database[cid]; ok {
 			// do something
 			processPeerInfo(requestedPeer, val, fileSaveDir)
+		} else {
+			// store other request
+			// ipfs will wrap file in a parent folder which not in the database
+			tempFile := fileInfo{
+				FileName: cid,
+				FileType: "other",
+			}
+			// process file
+			processPeerInfo(requestedPeer, &tempFile, fileSaveDir)
 		}
 	}
 }
